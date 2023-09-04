@@ -1,0 +1,16 @@
+{% extends 'aplicatie/base.html' %}
+
+{% block title %}{{articol.title}}{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1 class="text-center">{{articol.title}}</h1><br/>
+    {% csrf_token %}
+    <figcaption class="blockquote-footer text-center">
+       Write by {{user}}
+    </figcaption>
+    {% for item in articol.item_set.all %}
+
+        <p>{{item.contents}}</p>
+ {% endfor %}
+{% endblock %}

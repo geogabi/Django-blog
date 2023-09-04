@@ -1,0 +1,12 @@
+{% extends 'aplicatie/base.html' %}
+
+{% block title %}Adauga un nou articol{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1 class="text-center">Adauga articole</h1>
+    <form method="post" action="#" class="form-group">
+        {% csrf_token %}
+        {{form|crispy}}
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+{% endblock %}

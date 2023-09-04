@@ -1,0 +1,14 @@
+{% extends 'aplicatie/base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    {% for articol in user.article.all %}
+    <ul class="list-group">
+        <li class="list-group-item"><p class="h2"><a href="/{{articol.id}}">{{articol.title}}</a></p>
+        <p class="h6">Summary - {{articol.summary}}</p>
+        <button><a href="delete/{{ articol.id }}" type="btn btn-succcess">Delete</a></button>
+            <button><a href="edit/{{articol.id}}" type="btn">Edit</a></button></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

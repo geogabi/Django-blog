@@ -1,0 +1,12 @@
+{% extends 'aplicatie/base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    {% for articol in articol %}
+    <ul class="list-group">
+        <li class="list-group-item"><p class="h2"><a href="/{{articol.id}}">{{articol.title}}</a></p>
+        <p class="h6">About {{articol.summary}}</p></li>
+    {% endfor %}
+    </ul>
+{% endblock %}
