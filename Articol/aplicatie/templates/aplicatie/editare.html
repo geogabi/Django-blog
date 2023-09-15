@@ -4,7 +4,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <h1 class="text-center">{{articol.title}}</h1><br/>
-    <form method="post" class="form-group">
+    <form method="post" action="/view/" class="form-group">
         {% csrf_token %}
         {{form|crispy}}
         <button type="submit" name="editare" class="btn btn-success">Adaugare</button>

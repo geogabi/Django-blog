@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from ckeditor.fields import RichTextField
 # Create your models here.
 class Articol(models.Model):
 
@@ -8,10 +8,6 @@ class Articol(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=10)
     summary = models.CharField(max_length=50)
-
-
-class Item(models.Model):
-
-    article = models.ForeignKey(Articol, on_delete=models.CASCADE)
-    contents = models.TextField()
+    # contents = models.TextField()
+    contents = RichTextField(blank=True, null=True)
 

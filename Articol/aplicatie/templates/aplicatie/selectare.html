@@ -2,15 +2,14 @@
 
 {% block title %}{{articol.title}}{% endblock %}
 {% load crispy_forms_tags %}
-
 {% block content %}
-    <h1 class="text-center">{{articol.title}}</h1><br/>
-    {% csrf_token %}
-    <figcaption class="blockquote-footer text-center">
-       Write by {{user}}
-    </figcaption>
-    {% for item in articol.item_set.all %}
 
-        <p>{{item.contents}}</p>
- {% endfor %}
+    <h1 class="text-center">{{articol.title}}</h1><br/>
+    <figcaption class="blockquote-footer text-center">
+       Write by {{articol.user}}
+    </figcaption>
+
+<div align="left">
+        <p>{{articol.contents|safe}}</p>
+</div>
 {% endblock %}
