@@ -1,19 +1,21 @@
 from django.shortcuts import render, redirect
 from .models import Articol
-from .forms import CreateNewArticle, EditItem, PostForm
-from django.contrib.auth.models import User
+from .forms import CreateNewArticle, PostForm
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+
 def home(response):
     articol = Articol.objects.all()
     if response.method == 'POST':
         nota_search = response.POST['search']
-        print(nota_search)
+        for cuvant in articol:
+            lista = cuvant.title.split(' ')
+            if nota_search in lista:
+                return redirect(f'search/{cuvant.title}')
         if len(nota_search) != 0:
             return redirect(f'search/{nota_search}')
         return redirect('/')
-    return render(response, 'aplicatie/home.html',{'articole':articol})
+    return render(response, 'aplicatie/home.html', {'articole': articol})
 
 
 def index(response, id):
@@ -21,11 +23,9 @@ def index(response, id):
     user = articol.user
     return render(response, 'aplicatie/selectare.html',{'articol':articol,'user':user})
 
-def index_slug(response,slug):
+def index_slug(response, slug):
     articol = Articol.objects.filter(slug=slug)
-    print(articol)
     artic = articol.first()
-    print(artic)
     return render(response, 'aplicatie/selectare.html',{'articol':artic})
 
 
@@ -55,7 +55,6 @@ def adauga(response):
 
 def delete_post(response, id):
     articol = Articol.objects.get(id=id)
-    print(articol)
     articol.delete()
     return redirect('/view/')
 
@@ -65,9 +64,7 @@ def editare(response,id):
     if response.method == "POST":
         form = PostForm(response.POST)
         if form.is_valid():
-            # articol_title = response.POST["title"]
             articol_title = form.cleaned_data['title']
-            # articol_continut = response.POST['continut']
             articol_continut = form.cleaned_data['contents']
             articol.title = articol_title
             articol.contents = articol_continut
@@ -75,7 +72,7 @@ def editare(response,id):
             return redirect("/view/")
     else:
         form = PostForm(instance=articol)
-    return render(response, "aplicatie/add.html", {
+    return render(response, "aplicatie/edit.html", {
                 "titlu": "Editeaza",
                 "articol": articol,
                 'form': form

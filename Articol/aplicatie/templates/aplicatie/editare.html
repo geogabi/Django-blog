@@ -2,8 +2,11 @@
 
 {% block title %}Editare articol{% endblock %}
 {% load crispy_forms_tags %}
+
 {% block content %}
+
     <h1 class="text-center">{{articol.title}}</h1><br/>
+
     <form method="post" action="/view/" class="form-group">
         {% csrf_token %}
         {{form|crispy}}
