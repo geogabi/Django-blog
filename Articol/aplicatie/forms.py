@@ -10,7 +10,6 @@ class CreateNewArticle(forms.Form):
     summary = forms.CharField(label='Summary', max_length=100)
     content = forms.CharField(widget=CKEditorWidget())
 
-
 class PostForm(forms.ModelForm):
     class Meta:
         model = Articol
@@ -18,5 +17,5 @@ class PostForm(forms.ModelForm):
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'contents': CKEditorWidget(config_name='default')
+            'contents': CKEditorWidget()
         }
