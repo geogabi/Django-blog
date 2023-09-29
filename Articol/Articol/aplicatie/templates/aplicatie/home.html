@@ -1,0 +1,29 @@
+{% extends 'aplicatie/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group">
+              <label for="search">Search</label>
+              <input class="form-control" id="search" name="search">
+              <button type="submit" name="btn" class="btn btn-success">Search</button>
+          </div>
+        </form>
+    </div>
+
+    <div class="container">
+        {% for articol in articole %}
+            <ul class="list-group">
+                <li class="list-group-item"><p class="h2">
+                    <a href="/{{articol.slug}}">{{articol.title}}</a></p>
+                    <p class="h6">{{articol.summary}}</p>
+                </li>
+            </ul>
+        {% endfor %}
+    </div>
+
+{% endblock %}

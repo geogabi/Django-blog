@@ -1,0 +1,18 @@
+{% extends 'aplicatie/base.html' %}
+
+{% block title %}{{articol.title}}{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <h1 class="text-center">{{articol.title}}</h1><br/>
+
+    <figcaption class="blockquote-footer text-center">
+       Write by {{articol.user}}
+    </figcaption>
+
+    <div align="left" class="container">
+        <p>{{articol.contents|safe}}</p>
+    </div>
+
+{% endblock %}
