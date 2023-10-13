@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}My views{% endblock %}
+
+{% block content %}
+
+    <h1 class="text-center">My views</h1><br>
+
+    <div class="container">
+        {% for article in user.article.all %}
+        <ul class="list-group">
+            <li class="list-group-item"><p class="h2"><a href="/index/{{article.id}}">{{article.title}}</a></p>
+            <p class="h6">Summary - {{article.summary}}</p>
+            <a href="delete/{{ article.id }}" class="btn btn-danger">Delete</a>
+            <a href="edit/{{article.id}}" class="btn btn-primary">Edit</a></li>
+        </ul><br>
+        {% endfor %}
+
+    </div><br>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Search{% endblock %}
+
+{% block content %}
+
+    <h1 class="text-center">Articles found</h1>
+
+    {% for article in articles %}
+        <div class="container">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <a href="/index/{{article.slug}}" class="h1 card-title text-primary">{{article.title}}</a>
+                </div>
+                <div class="card-subtitle text-muted mb-0 m-2">
+                    <p>{{article.created}}</p>
+                </div>
+                <div class="card-text m-2"><p class="h6">{{article.summary}}</p></div>
+            </div><br>
+        </div>
+    {% endfor %}
+    <div class="container">
+        <a href="/" class="btn btn-secondary">Back</a>
+    </div>
+{% endblock %}
