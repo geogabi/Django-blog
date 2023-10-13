@@ -1,2 +1,2 @@
 # Django-blog
-A simple Djnago Blog with user management
+A simple Django Blog with user management
