@@ -18,23 +18,23 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-          <a class="nav-link" href="/view/">MyView</a>
-        </li>
-          <li class="nav-item">
-          <a class="nav-link" href="/add/">Add New</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/logout/">Logout</a>
-          {% else %}
-          <a class="nav-link" href="/login/">Login</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/register/">Register</a>
-        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="/view/">MyView</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/add/">Add New</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout/">Logout</a>
+        {% else %}
+              <a class="nav-link" href="/login/">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register/">Register</a>
+            </li>
         {% endif %}
-          <li><hr class="dropdown-divider"></li>
+        <li><hr class="dropdown-divider"></li>
       </ul>
     </div>
         <form class="d-flex" role="search" method="post" action="{% url 'search' %}">

@@ -1,24 +1,76 @@
 {% extends 'base.html' %}
+
 {% block title %}Search{% endblock %}
 
 {% block content %}
+<style>
+    .blog-block{
+        display: grid;
+        grid-template-columns: 50px 1fr;
+    }
+
+    .photo{
+        width:140px;
+        margin-top: 0px;
+    }
+
+    .info{
+        margin-left:130px;
+    }
+
+    .title{
+      margin-top: 10px;
+      font-size: 35px;
+      line-height: 20px;
+
+    }
+
+    .summary{
+      font-size: 17px;
+      margin-top: -5px;
+    }
+
+    .date{
+        color: gray;
+        font-size: 15px;
+    }
+
+    .grid{
+        display: grid;
+        grid-template-rows: 30px 30px 30px;
+        row-gap: 20px;
+        padding: 50px 50px 10px 100px;
+    }
+</style>
 
     <h1 class="text-center">Articles found</h1>
 
-    {% for article in articles %}
-        <div class="container">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <a href="/index/{{article.slug}}" class="h1 card-title text-primary">{{article.title}}</a>
+   {% for article in articles %}
+        <div class="grid">
+            <div class="blog-block">
+                <div class="picture">
+                    {% if article.blog_picture %}
+                        <img class="photo" src="{{article.blog_picture.url}}">
+                    {% else %}
+                        <img src="./media/images/none_picture.jpg" class="photo">
+                    {% endif %}
                 </div>
-                <div class="card-subtitle text-muted mb-0 m-2">
-                    <p>{{article.created}}</p>
+
+                <div class="info">
+                    <a href="/index/{{article.slug}}" class="title">{{article.title}}</a>
+                    <p class="date">{{article.created}}</p>
+                    <p class="summary">{{article.summary}}</p>
                 </div>
-                <div class="card-text m-2"><p class="h6">{{article.summary}}</p></div>
-            </div><br>
+            </div><br><br>
         </div>
-    {% endfor %}
+{% endfor %}
+
+
+
     <div class="container">
         <a href="/" class="btn btn-secondary">Back</a>
     </div>
 {% endblock %}
+
+
+

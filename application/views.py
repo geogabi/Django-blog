@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
+from django.utils.text import slugify
+
 from .models import Article
-from .forms import CreateNewArticle, PostForm
+from .forms import PostForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
@@ -31,19 +33,20 @@ def view(response):
 @login_required(login_url='/login')
 def add_new(response):
     if response.method == 'POST':
-        form = CreateNewArticle(response.POST)
+        form = PostForm(response.POST, response.FILES)
         if form.is_valid():
             title = form.cleaned_data['title']
-            slug = form.cleaned_data['slug']
             summary = form.cleaned_data['summary']
-            contents = form.cleaned_data['content']
-            article = Article(title=title, slug=slug, summary=summary,contents=contents)
+            contents = form.cleaned_data['contents']
+            blog_picture = form.cleaned_data['blog_picture']
+            article = Article(title=title, summary=summary,contents=contents, blog_picture=blog_picture)
+            article.slug = slugify(title)
             article.save()
             response.user.article.add(article)
-            return redirect('/home/')
+            return redirect('/')
         return redirect('/view/')
     else:
-        form = CreateNewArticle()
+        form = PostForm()
     return render(response, 'add_new.html',{'form':form})
 
 
@@ -56,14 +59,16 @@ def delete_post(response, id):
 def edit(response,id):
     article = Article.objects.get(id=id)
     if response.method == "POST":
-        form = PostForm(response.POST)
+        form = PostForm(response.POST, response.FILES)
         if form.is_valid():
             article_title = form.cleaned_data['title']
             article_summary = form.cleaned_data['summary']
             article_content = form.cleaned_data['contents']
+            blog_picture = form.cleaned_data['blog_picture']
             article.title = article_title
             article.summary = article_summary
             article.contents = article_content
+            article.blog_picture = blog_picture
             article.save()
             return redirect("/view/")
     else:

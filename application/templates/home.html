@@ -4,22 +4,68 @@
 
 {% block content %}
 
-<h1 class="text-center">Blog Articles</h1><br>
-        {% for article in articles %}
-    <div class="container">
-        <div class="card mb-4">
-            <div class="card-body">
-                <a href="/index/{{article.slug}}" class="h1 card-title text-primary">{{article.title}}</a>
-            </div>
-            <div class="card-subtitle text-muted mb-0 m-2">
-                <p>{{article.created}}</p>
-            </div>
-            <div class="card-text m-2"><p class="h6">{{article.summary}}</p></div>
-        </div><br>
-    </div>
-        {% endfor %}
+<style>
+    .blog-block{
+        display: grid;
+        grid-template-columns: 50px 1fr;
+    }
 
-<div class="container">
+    .photo{
+        width:140px;
+        margin-top: 0px;
+    }
+
+    .info{
+        margin-left:130px;
+    }
+
+    .title{
+      margin-top: 10px;
+      font-size: 35px;
+      line-height: 20px;
+
+    }
+
+    .summary{
+      font-size: 17px;
+      margin-top: -5px;
+    }
+
+    .date{
+        color: gray;
+        font-size: 15px;
+    }
+
+    .grid{
+        display: grid;
+        grid-template-rows: 30px 30px 30px;
+        row-gap: 20px;
+        padding: 50px 50px 10px 100px;
+    }
+</style>
+
+<h1 class="text-center">Blog Articles</h1>
+{% for article in articles %}
+<div class="grid">
+    <div class="blog-block">
+        <div class="picture">
+            {% if article.blog_picture %}
+            <img class="photo" src="{{article.blog_picture.url}}">
+            {% else %}
+            <img src="./media/images/none_picture.jpg" class="photo">
+            {% endif %}
+        </div>
+
+        <div class="info">
+            <a href="index/{{article.slug}}" class="title">{{article.title}}</a>
+            <p class="date">{{article.created}}</p>
+            <p class="summary">{{article.summary}}</p>
+        </div>
+    </div><br><br>
+</div>
+{% endfor %}
+
+<br><div class="container">
     <nav aria-label="Page navigation">
         <ul class="pagination pagination-lg">
             {% if articles.has_previous %}
@@ -35,7 +81,6 @@
     </nav>
 </div>
 
-
 <!--{% if articles.has_previous %}-->
 <!--    <a href="?page=1">&laquo;First</a>-->
 <!--    <a href="?page={{ articles.previous_page_number }}">Previous</a>-->
@@ -45,6 +90,7 @@
 <!--    <a href="?page={{articles.next_page_number}}">Next</a>-->
 <!--    <a href="?page={{articles.paginator.num_pages}}">Last &raquo;</a>-->
 <!--{% endif %}-->
-
-
 {% endblock %}
+
+
+

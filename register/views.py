@@ -12,7 +12,7 @@ def register(response):
             messages.add_message(response, messages.SUCCESS,"You have been registred")
             return redirect('/')
         messages.add_message(response,messages.ERROR, 'Something wrong')
-        return redirect('/register/')
+        return redirect('/register')
     else:
         form = RegisterForm()
     return render(response, 'register/register.html',{'form':form})
